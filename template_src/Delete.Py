@@ -29,7 +29,7 @@ def delete_files_and_folders(target_dir, folders_to_delete, files_to_delete, cle
 
 if __name__ == "__main__":
     # Define the root directory of your project
-    project_dir = "ExampleError//template_src"
+    project_dir = "CordovaProyect/template_src"
 
     # List of folder names to delete
     folders = ["platforms","node_modules","plugins"]
