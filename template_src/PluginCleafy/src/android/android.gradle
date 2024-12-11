@@ -1,0 +1,38 @@
+allprojects {
+    repositories {
+        flatDir {
+            dirs 'src/main/libs'
+        }
+    }
+}
+
+dependencies {
+    implementation(name:'cleafy-agent', ext:'aar')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.22"
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation "com.google.protobuf:protobuf-javalite:4.27.2"
+    implementation "androidx.core:core-ktx:1.9.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation "androidx.lifecycle:lifecycle-process:2.5.1"
+}
+
+android {
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'dto.proto'
+    }
+    
+    ndkVersion '23.1.7779620'
+
+    defaultConfig {
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'armeabi', 'mips'
+        }
+    }
+    
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+}

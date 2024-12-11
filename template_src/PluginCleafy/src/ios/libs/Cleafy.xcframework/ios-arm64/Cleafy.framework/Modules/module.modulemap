@@ -1,0 +1,11 @@
+framework module Cleafy {
+  umbrella header "Cleafy.h"
+
+  export *
+  module * { export * }
+}
+
+module Cleafy.Swift {
+  header "Cleafy-Swift.h"
+  requires objc
+}

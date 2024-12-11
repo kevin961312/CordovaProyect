@@ -1,0 +1,146 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)
+// swift-module-flags: -target x86_64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Cleafy
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import CallKit
+@_exported import Cleafy
+import CommonCrypto
+import CoreLocation
+import CoreMotion
+import Foundation
+import MachO
+import Security
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+public protocol AgentDiagnosticsProvider {
+  func getAgentDiagnostics() -> Cleafy.AgentDiagnostics
+}
+extension Cleafy.CleafyAPIIntegrityInterceptor {
+  @available(*, deprecated, message: "Use urlSession(task:didReceive:) instead")
+  public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didReceive challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  @available(*, deprecated, message: "Use urlSession(_:task:willPerformHTTPRedirection:newRequest:) instead")
+  public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, willPerformHTTPRedirection response: Foundation.HTTPURLResponse, newRequest request: Foundation.URLRequest, completionHandler: @escaping (Foundation.URLRequest?) -> Swift.Void)
+  @available(*, deprecated, message: "Use urlSession(dataTask:didReceive:) instead")
+  public func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive data: Foundation.Data)
+}
+public protocol AgentDiagnosticsListener {
+  func onDiagnosticsWithErrorAvailable(diagnosticsProvider: Cleafy.AgentDiagnosticsProvider, error: Swift.String)
+}
+public enum DefaultConfiguration {
+  public static let httpDetectorEnabled: Swift.Bool
+  public static let certDetectorEnabled: Swift.Bool
+  public static let monitoredAppEnabled: Swift.Bool
+  public static let defaultEnabled: Swift.Bool
+  public static let automaticUpdateAnalysis: Cleafy.AutomaticUpdateAnalysis
+  public static let allowUntrustedCertificates: Swift.Bool
+  public static let advancedCertDetectorEnabled: Swift.Bool
+  public static let rootDetectorEnabled: Swift.Bool
+  public static let mockLocationDetectorEnabled: Swift.Bool
+  public static let onCallDetectorEnabled: Swift.Bool
+  public static let humanDetectorEnabled: Swift.Bool
+}
+public enum AutomaticUpdateAnalysis : Swift.Int, Swift.Codable {
+  case none
+  case foreground
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct CleafyDetectorsConfiguration : Swift.Codable {
+  public let isMonitoredAppEnabled: Swift.Bool
+  public let isHTTPDetectorEnabled: Swift.Bool
+  public let isCertDetectorEnabled: Swift.Bool
+  public let certDetectorEndpoint: Swift.String
+  public let isAdvancedCertDetectorEnabled: Swift.Bool
+  public let isRootDetectorEnabled: Swift.Bool
+  public let isMockLocationDetectorEnabled: Swift.Bool
+  public let isVPNDetectorEnabled: Swift.Bool
+  public let isOnCallDetectorEnabled: Swift.Bool
+  public let isHumanDetectorEnabled: Swift.Bool
+  public init(monitoredAppEnabled: Swift.Bool = DefaultConfiguration.monitoredAppEnabled, httpDetectorEnabled: Swift.Bool = DefaultConfiguration.httpDetectorEnabled, certDetectorEnabled: Swift.Bool = DefaultConfiguration.certDetectorEnabled, certDetectorEndpoint: Swift.String = "", advancedCertDetectorEnabled: Swift.Bool = DefaultConfiguration.advancedCertDetectorEnabled, rootDetectorEnabled: Swift.Bool = DefaultConfiguration.rootDetectorEnabled, mockLocationDetectorEnabled: Swift.Bool = DefaultConfiguration.mockLocationDetectorEnabled, onCallDetectorEnabled: Swift.Bool = DefaultConfiguration.onCallDetectorEnabled, humanDetectorEnabled: Swift.Bool = DefaultConfiguration.humanDetectorEnabled)
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct CleafyConfiguration : Swift.Codable {
+  public let apiEndpoint: Swift.String
+  public let applicationHostname: Swift.String
+  public let isDefaultEnabled: Swift.Bool
+  public let automaticUpdateAnalysis: Cleafy.AutomaticUpdateAnalysis
+  public let allowUntrustedCertificates: Swift.Bool
+  public let detectors: Cleafy.CleafyDetectorsConfiguration
+  public init(apiEndpoint: Swift.String, applicationHostname: Swift.String, defaultEnabled: Swift.Bool = DefaultConfiguration.defaultEnabled, automaticUpdateAnalysis: Cleafy.AutomaticUpdateAnalysis = DefaultConfiguration.automaticUpdateAnalysis, allowUntrustedCertificates: Swift.Bool = DefaultConfiguration.allowUntrustedCertificates, detectors: Cleafy.CleafyDetectorsConfiguration = CleafyDetectorsConfiguration())
+  public init(from decoder: Swift.Decoder) throws
+  public static func decode(from dictionary: [Swift.String : Any]) throws -> Cleafy.CleafyConfiguration
+  public func encode(to encoder: Swift.Encoder) throws
+}
+extension Foundation.UUID {
+  public static var randomID: Swift.String {
+    get
+  }
+}
+public class CleafyAPIIntegrityInterceptor {
+  public init()
+  public func urlSession(_ session: Foundation.URLSession, didBecomeInvalidWithError error: Swift.Error?)
+  public func urlSession(task: Foundation.URLSessionTask, didReceive challenge: Foundation.URLAuthenticationChallenge)
+  public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didCompleteWithError error: Swift.Error?)
+  public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, willPerformHTTPRedirection response: Foundation.HTTPURLResponse, newRequest request: Foundation.URLRequest)
+  public func urlSession(dataTask: Foundation.URLSessionDataTask, didReceive data: Foundation.Data)
+  @objc deinit
+}
+public protocol ProbeTrace {
+  var timestamp: Swift.Int64 { get }
+  var sessionId: Swift.String { get }
+  var eventId: Swift.String { get }
+  var statusCode: Swift.Int { get }
+}
+public protocol AgentDiagnostics {
+  var deviceId: Swift.String { get }
+  var probeTraces: [Cleafy.ProbeTrace] { get }
+  var errors: [Swift.String] { get }
+  var successfulProbeSubmissions: Swift.Int { get }
+  var failedProbeSubmissions: Swift.Int { get }
+  var lastConfigurationUpdateTimestamp: Swift.Int64 { get }
+}
+public class CleafyHttpRequestInterceptor {
+  public init()
+  public func intercept(_ request: Foundation.URLRequest) -> Foundation.URLRequest
+  @objc deinit
+}
+public func initWith(configuration: Cleafy.CleafyConfiguration, motionManager: CoreMotion.CMMotionManager? = nil)
+@available(*, deprecated, message: "Use initWith(configuration, motionManager) instead.")
+public func initWith(dictionary: [Swift.String : Any], motionManager: CoreMotion.CMMotionManager? = nil)
+public func setLocation(_ location: Swift.String)
+public func setUserID(_ userID: Swift.String)
+public func setAppSessionID(_ appSessionID: Swift.String)
+public func setAppDeviceID(_ appDeviceID: Swift.String)
+public var sessionId: Swift.String {
+  get
+}
+public var browserId: Swift.String {
+  get
+}
+public var parentId: Swift.String {
+  get
+}
+public var applicationHostname: Swift.String {
+  get
+}
+public var version: Swift.String {
+  get
+}
+public var deviceId: Swift.String {
+  get
+}
+public func invalidateSession()
+@available(*, deprecated, message: "Use setLocation(_:) or setUserID(_:) or setAppSessionID(_:) or setAppDeviceID(:_) instead.")
+public func sendCustom(key: Swift.String, value: Swift.String)
+public func updateDetection()
+public func getDiagnostics() -> Cleafy.AgentDiagnostics
+public func registerDiagnosticsListener(listener: Cleafy.AgentDiagnosticsListener)
+extension Cleafy.AutomaticUpdateAnalysis : Swift.Equatable {}
+extension Cleafy.AutomaticUpdateAnalysis : Swift.Hashable {}
+extension Cleafy.AutomaticUpdateAnalysis : Swift.RawRepresentable {}

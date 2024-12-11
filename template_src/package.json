@@ -1,0 +1,29 @@
+{
+    "name": "barcodeselectionsimplesample",
+    "displayName": "BarcodeSelectionSimpleSample",
+    "version": "1.0.0",
+    "description": "BarcodeSelectionSimpleSample for the Scandit Cordova plugin",
+    "main": "index.js",
+    "keywords": [
+        "ecosystem:cordova"
+    ],
+    "cordova": {
+        "plugins": {
+            "scandit-cordova-datacapture-core": {},
+            "scandit-cordova-datacapture-barcode": {},
+            "cleafy-cordova-plugin": {}
+        },
+        "platforms": [
+            "ios",
+            "android"
+        ]
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "cleafy-cordova-plugin": "file:PluginCleafy",
+        "cordova-ios": "^7.1.1",
+        "cordova-plugin-add-swift-support": "^2.0.2",
+        "scandit-cordova-datacapture-barcode": "^7.0.0",
+        "scandit-cordova-datacapture-core": "^7.0.0"
+    }
+}

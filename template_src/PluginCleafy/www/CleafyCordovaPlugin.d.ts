@@ -1,0 +1,76 @@
+export type Callback<T> = (data: T) => any;
+export type ProbeTrace = {
+    timestamp: number;
+    sessionId: string;
+    eventId: string;
+    probeType: "CUSTOM" | "STANDARD";
+    statusCode: number;
+};
+export type AgentDiagnostics = {
+    deviceId: string;
+    probeTraces: ProbeTrace[];
+    errors: string[];
+    successfulProbeSubmissions: number;
+    failedProbeSubmissions: number;
+    lastConfigurationUpdateTimestamp: number;
+};
+export type CleafyConfiguration = {
+    apiEndpoint: string;
+    applicationHostname: string;
+    isDefaultEnabled: boolean;
+    automaticUpdateAnalysis: "NONE" | "FOREGROUND";
+    emulatorDebugAnalysis: "NONE" | "BASIC" | "ADVANCED";
+    isPackageAnalysisEnabled: boolean;
+    isExtendedPackageInformation: boolean;
+    isSensitiveIdentifierCollectionEnabled: boolean;
+    isHashSensitiveIdentifiers: boolean;
+    isAllowUntrustedCertificates: boolean;
+    detectorsConfiguration: CleafyDetectorsConfiguration;
+};
+export type CleafyDetectorsConfiguration = {
+    isHttpDetectorEnabled: boolean;
+    isCertDetectorEnabled: boolean;
+    certDetectorEndpoint: string;
+    isMonitoredAppEnabled: boolean;
+    isActivityDetectorEnabled: boolean;
+    isAdvancedHttpCertDetectorEnabled: boolean;
+    isRootDetectorEnabled: boolean;
+    isTaskInjectionEnabled: boolean;
+    isMockLocationDetectorEnabled: boolean;
+    isAdvancedMockLocationDetectorEnabled: boolean;
+    isOnCallDetectorEnabled: boolean;
+    isHumanDetectorEnabled: boolean;
+};
+export interface CleafyPlugin {
+    initWithConfiguration(onSuccess: Callback<void>, onError: Callback<string>, configuration: CleafyConfiguration): void;
+    invalidateSession(onSuccess: Callback<void>, onError: Callback<string>): void;
+    updateDetection(onSuccess: Callback<void>, onError: Callback<string>): void;
+    getDiagnostics(onSuccess: Callback<AgentDiagnostics>, onError: Callback<string>): void;
+    registerDiagnosticsListener(onSuccess: Callback<AgentDiagnostics>, onError: Callback<string>): void;
+    getSessionId(onSuccess: Callback<string>, onError: Callback<string>): void;
+    getBrowserId(onSuccess: Callback<string>, onError: Callback<string>): void;
+    getParentId(onSuccess: Callback<string>, onError: Callback<string>): void;
+    getApplicationHostname(onSuccess: Callback<string>, onError: Callback<string>): void;
+    getVersion(onSuccess: Callback<string>, onError: Callback<string>): void;
+    getDeviceId(onSuccess: Callback<String>, onError: Callback<String>): void;
+    setLocation(onSuccess: Callback<string>, onError: Callback<string>, location: string): void;
+    setAppSessionId(onSuccess: Callback<string>, onError: Callback<string>, appSessionId: string): void;
+    setUserId(onSuccess: Callback<string>, onError: Callback<string>, userId: string): void;
+    setAppDeviceId(onSuccess: Callback<string>, onError: Callback<string>, appDeviceId: string): void;
+    registerLocationListener(onSuccess: Callback<void>, onError: Callback<string>, provider?: string, minTime?: number, minDistance?: number): void;
+}
+export declare function initWithConfiguration(onSuccess: Callback<void>, onError: Callback<string>, { apiEndpoint, applicationHostname, isDefaultEnabled, automaticUpdateAnalysis, emulatorDebugAnalysis, isPackageAnalysisEnabled, isExtendedPackageInformation, isSensitiveIdentifierCollectionEnabled, isHashSensitiveIdentifiers, isAllowUntrustedCertificates, detectorsConfiguration: { isHttpDetectorEnabled, isCertDetectorEnabled, certDetectorEndpoint, isMonitoredAppEnabled, isActivityDetectorEnabled, isAdvancedHttpCertDetectorEnabled, isRootDetectorEnabled, isTaskInjectionEnabled, isMockLocationDetectorEnabled, isAdvancedMockLocationDetectorEnabled, isOnCallDetectorEnabled, isHumanDetectorEnabled, }, }: CleafyConfiguration): void;
+export declare function invalidateSession(onSuccess: Callback<void>, onError: Callback<string>): void;
+export declare function updateDetection(onSuccess: Callback<void>, onError: Callback<string>): void;
+export declare function getDiagnostics(onSuccess: Callback<AgentDiagnostics>, onError: Callback<string>): void;
+export declare function registerDiagnosticsListener(onSuccess: Callback<AgentDiagnostics>, onError: Callback<string>): void;
+export declare function getSessionId(onSuccess: Callback<string>, onError: Callback<string>): void;
+export declare function getBrowserId(onSuccess: Callback<string>, onError: Callback<string>): void;
+export declare function getParentId(onSuccess: Callback<string>, onError: Callback<string>): void;
+export declare function getApplicationHostname(onSuccess: Callback<string>, onError: Callback<string>): void;
+export declare function getVersion(onSuccess: Callback<string>, onError: Callback<string>): void;
+export declare function setLocation(onSuccess: Callback<string>, onError: Callback<string>, location: string): void;
+export declare function setAppSessionId(onSuccess: Callback<string>, onError: Callback<string>, appSessionId: string): void;
+export declare function setUserId(onSuccess: Callback<string>, onError: Callback<string>, userId: string): void;
+export declare function setAppDeviceId(onSuccess: Callback<string>, onError: Callback<string>, appDeviceId: string): void;
+export declare function registerLocationListener(onSuccess: Callback<void>, onError: Callback<string>, provider?: string, minTime?: number, minDistance?: number): void;

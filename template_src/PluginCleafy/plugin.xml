@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cleafy-cordova-plugin" version="0.0.1"
+  xmlns="http://apache.org/cordova/ns/plugins/1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>CleafyCordovaPlugin</name>
+
+  <js-module name="CleafyCordovaPlugin" src="www/CleafyCordovaPlugin.js">
+    <clobbers target="Cleafy" />
+  </js-module>
+  
+  <platform name="android">
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="CleafyCordovaPlugin">
+        <param name="android-package" value="com.cleafy.mobile.cordova.CleafyCordovaPlugin" />
+      </feature>
+    </config-file>
+    <config-file parent="/*" target="AndroidManifest.xml" />
+    
+    <source-file src="src/android/detector/CleafyCordovaPlugin.java" target-dir="src/com/cleafy/mobile/cordova" />
+    <source-file src="src/android/detector/JSONUtils.java" target-dir="src/com/cleafy/mobile/cordova" />
+    <source-file src="src/android/detector/LocationListenerUtils.java" target-dir="src/com/cleafy/mobile/cordova" />
+
+    <framework src="src/android/android.gradle" custom="true" type="gradleReference" />
+
+    <resource-file src="src/android/libs/cleafy-agent.aar" target="libs/cleafy-agent.aar" />
+  </platform>
+  
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <preference name="UseSwiftLanguageVersion" value="5" />
+      <feature name="CleafyCordovaPlugin">
+        <param name="ios-package" value="CleafyCordovaPlugin" />
+      </feature>
+    </config-file>
+    
+    <source-file src="src/ios/CleafyCordovaPlugin.swift" />
+    <source-file src="src/ios/CleafyCordovaPlugin+Diagnostics.swift" />
+    <source-file src="src/ios/CleafyCordovaPlugin+Getters.swift" />
+    <source-file src="src/ios/CleafyCordovaPlugin+Setters.swift" />
+
+    <framework src="src/ios/libs/Cleafy.xcframework" custom="true" embed="true" />
+
+    <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
+  </platform>
+</plugin>

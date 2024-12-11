@@ -1,0 +1,41 @@
+{
+  "name": "cleafy-cordova-plugin",
+  "version": "2.1.0",
+  "description": "Apache Cordova plugin wrapping the Cleafy Mobile SDK.",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "main": "www/CleafyCordovaPlugin.js",
+  "types": "www/CleafyCordovaPlugin.d.ts",
+  "author": "Cleafy",
+  "cordova": {
+    "id": "cleafy-cordova-plugin",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "files": [
+    "plugin.xml",
+    "src/android",
+    "src/ios",
+    "www"
+  ],
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cleafy",
+    "cleafy-mobile",
+    "cleafy-mobile-sdk"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/cordova": "^11.0.3",
+    "colors": "1.1.2",
+    "cordova": "^12.0.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  }
+}
